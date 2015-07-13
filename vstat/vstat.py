@@ -1,13 +1,18 @@
-import subprocess
-import re
 from collections import namedtuple
 import os
 
 
-StatsEntry = namedtuple('StatsEntry', 'token, hostname, provider, state, path')
+StatusTuple = namedtuple('StatusTyple',
+                         'token, hostname, provider, state, path')
 
 
 class StatusEntry(object):
+    """
+    A basic representation of a status line from running:
+
+        $ vagrant global-status
+
+    """
     def __init__(self, token, hostname, provider, state, path):
         self.token = token.strip()
         self.hostname = hostname.strip()
@@ -24,35 +29,3 @@ class StatusEntry(object):
 
     def __str__(self):
         return "{}".format(self.token)
-
-
-def main():
-
-    RE_statline = re.compile("^(?P<token>.*?)\s+(?P<hostname>.*?)\s+"
-                             "(?P<provider>.*?)\s+(?P<state>.*?)\s+"
-                             "(?P<path>.*?)$")
-
-    vp = subprocess.Popen(["vagrant", "global-status"], stdout=subprocess.PIPE)
-    result = vp.stdout.read().split('\n')
-    # print result
-    stats = {}
-    for r in result[2:]:
-        if r == ' ':
-            break
-        m = RE_statline.match(r)
-        if m:
-            e = StatusEntry(*m.groups())
-        if e.project not in stats:
-            stats[e.project] = []
-        stats[e.project].append(e)
-
-    for key, value in stats.iteritems():
-        nextkey = key
-        for v in value:
-            print("{:16}{:10}{}".format(nextkey, v, v.state))
-            if nextkey == key:
-                nextkey = ""
-
-
-if __name__ == '__main__':
-    main()
