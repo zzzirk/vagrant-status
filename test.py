@@ -66,6 +66,13 @@ f3f2c96  search vmware_fusion running /Users/lzirkel/src/projects/cmdb
 e9dd0b5  util   vmware_fusion running /Users/lzirkel/src/projects/audit
 3a3935f  db     vmware_fusion running /Users/lzirkel/src/projects/cmdb
 58b9b5c  web    vmware_fusion running /Users/lzirkel/src/projects/cmdb
+
+The above shows information about all known Vagrant environments
+on this machine. This data is cached and may not be completely
+up-to-date. To interact with any of the machines, you can go to
+that directory and run Vagrant, or you can use the ID directly
+with Vagrant commands from any directory. For example:
+"vagrant destroy 1a2b3c4d"
 """)
 
     def test_successful_vagrant_status_instantiation(self):
