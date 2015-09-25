@@ -14,7 +14,7 @@ def main():
         value = stats[key]
         nextkey = key
         for v in value:
-            print("{:16}{:10}{}".format(nextkey, v, v.state))
+            print("{:20}{:10}{}".format(nextkey, v, v.state))
             if nextkey == key:
                 nextkey = ""
 
